@@ -1,0 +1,124 @@
+#!/bin/bash
+
+echo $1
+echo $2
+echo $3
+echo $4
+
+# no command given, quick error check
+if [ $# -eq 0 ] 
+then
+	echo 'Error: No gitsp command given' >&2
+fi
+
+# gitsp init <remote_url>
+# initializes an empty git repository and configures remote URL
+if [ $1 == 'init' ] 
+then
+	if [ $# -eq 2 ]
+	then  
+		git init
+		git remote add origin $2
+	else 
+		echo 'Error: Invalid args for INIT, run with "gitsp init <remote_url>"' >&2
+	fi 
+
+# gitsp send <files> <commit_msg> [<branch>]
+# send changes to remote repository, with optional branch specifier
+elif [ $1 == 'send' ]
+then
+	if [ $# -eq 3 ] 
+	then
+		git add $2
+		git commit -m "$3"
+		git push origin master
+	elif [ $# -eq 4 ]
+	then
+		git add $2
+                git commit -m "$3"
+                git push origin $4 
+	else 
+		echo 'Error: Invalid args for SEND, run with "gitsp send <files> <commit_msg> [<branch>]"' >&2
+	fi
+
+# gitsp pull [<branch>]
+# pulls latest changes from master by default, or the specified branch
+elif [ $1 == 'pull' ]
+then
+	git stash
+
+	if [ $# == 2 ] 
+	then
+		git pull origin $2
+	elif [ $# == 1 ]
+	then
+		git pull origin master
+	else
+		echo 'Error: Invalid args for PULL, run with "gitsp pull [<branch>]"' >&2
+	fi
+
+	git stash apply
+		
+
+# gitsp create <branch>
+# create a new local branch
+elif [ $1 == 'create' ]
+then
+	if [ $# -eq 2 ]
+	then
+		git checkout -b $2
+	else 
+		echo 'Error: Invalid args for CREATE, run with "gitsp create <branch>"' >&2
+        fi
+
+# gitsp switch <branch>
+# switch to an existing local branch
+elif  [ $1 == 'switch' ]
+then
+	if [ $# -eq 2 ]
+	then
+		git checkout $2
+	else 
+		echo 'Error: Invalid args for SWITCH, run with "gitsp switch <branch>"' >&2
+        fi 
+
+# gitsp user <username> <email>
+# configure user credentials for commits
+elif [ $1 == 'user' ] && [ $# -eq 3 ]
+then
+	if [ $# -eq 3 ] 
+	then
+		git config --global user.name "$2"
+		git config --global user.email "$3"
+	else
+		echo 'Error: Invalid args for USER, run with "gitsp user <username> <email>"' >&2
+        fi 
+
+# gitsp info
+# show info related to current local repository
+elif [ $1 == 'info' ] && [ $# == 1 ] 
+then
+	echo
+	echo "Username: "$(git config user.name)
+	echo "Email: "$(git config user.email)
+	echo "Remote URL: "$(git config remote.origin.url)
+	echo "Branches:"
+	git branch
+	echo
+
+# gitsp help
+# show all available commands
+elif [ $1 == 'help' ] && [ $# == 1 ]
+then
+	echo
+	echo 'Available gitsp commands:'
+	echo 'gitsp init <remote_url>'
+	echo 'gitsp send <files> <commit_msg> [<branch>]'
+	echo 'gitsp pull [<branch>]'
+	echo 'gitsp create <branch>'
+	echo 'gitsp switch <branch>'
+	echo 'gitsp user <username> <email>'
+	echo 'gitsp info'
+	echo
+
+fi
