@@ -57,4 +57,10 @@ Shows some information about the current repository, including username, email, 
 
 Shows a list of all available `gitsp` commands.
 
+Future Improvements/Additions:
+--------------------
 
+* Dedicated merge command
+* Rebase command
+* Commit unstage command
+* Fetch command
