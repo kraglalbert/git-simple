@@ -15,7 +15,7 @@ And you're ready to rock and roll!
 Commands
 --------
 
-In genereal, call git-simple with `gitsp`, then follow that with the desired command.
+In general, call git-simple with `gitsp`, then follow that with the desired command.
 
 #### init
 ```gitsp init <remote_url>```
