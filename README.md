@@ -63,6 +63,12 @@ Shows some information about the current repository, including username, email, 
 
 Shows a list of all available `gitsp` commands.
 
+#### version
+
+`gitsp version` or  `gitsp -v`
+
+Shows the installed `gitsp` version.
+
 ## Future Improvements/Additions:
 
 - Dedicated merge command

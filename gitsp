@@ -133,5 +133,17 @@ then
 		echo 'Error: Invalid args for HELP, run with "gitsp help"' >&2
 		exit 1
 	fi
+
+# gitsp version / gitsp -v
+# shows the installed gitsp version
+elif [ $1 == 'version' ] || [ $1 == '-v' ]
+then
+	if [ $# == 1 ]
+	then
+		echo 'version 0.0'
+	else 
+		echo 'Error: Invalid args for VERSION, run with "gitsp version" or "gitsp -v"' >&2
+	fi
+
 fi
 
