@@ -82,6 +82,18 @@ then
         	exit 1
 	fi 
 
+# gitsp delete <branch>
+# delete an existing local branch
+elif  [ $1 == 'delete' ]
+then
+        if [ $# -eq 2 ]
+        then
+                git branch -d $2
+        else
+                echo 'Error: Invalid args for DELETE, run with "gitsp delete <branch>"' >&2
+                exit 1
+        fi
+
 # gitsp user <username> <email>
 # configure user credentials for commits
 elif [ $1 == 'user' ] && [ $# -eq 3 ]

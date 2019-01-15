@@ -45,6 +45,12 @@ Creates a new local branch with the specified name.
 
 Switches to the specified local branch.
 
+#### delete
+
+`gitsp delete <branch>`
+
+Deletes the specified local branch.
+
 #### user
 
 `gitsp user <username> <email>`
